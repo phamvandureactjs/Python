@@ -1,0 +1,63 @@
+{
+    "configurations": [
+        {
+            "name": "Launch LUPA App",
+            "request": "launch",
+            "type": "lupalaunchselector"
+        },
+        {
+            "name": "Launch LUPA App without Debug",
+            "request": "launch",
+            "type": "lupaappdbg",
+            "program": "files/launcher.js",
+            "preLaunchTask": "LUPA Task: Run"
+        },
+        {
+            "name": "Debug LUPA Device",
+            "cwd": "${workspaceFolder}",
+            "executable": "${auto-select}",
+            "request": "attach",
+            "type": "cortex-debug",
+            "servertype": "openocd",
+            "searchDir": [
+                "${workspaceRoot}",
+                "${config:lupastudio.sdkroot}/${config:lupastudio.activeSdk}/sdk/xpack-openocd-0.11.0-1/scripts"
+            ],
+            "device": "stm32f429i_disc1",
+            "interface": "swd",
+            "showDevDebugOutput": "none",
+            "serialNumber": "",
+            "armToolchainPath": "${config:lupastudio.toolchainPath}/bin",
+            "gdbPath": "${config:lupastudio.gdbPath}",
+            "configFiles": [
+                "${config:lupastudio.sdkroot}/${config:lupastudio.activeSdk}/sdk/boards/arm/dqc_lg8211a0_triton/support/openocd.cfg"
+            ],
+            "openOCDLaunchCommands": [
+                "init",
+                "targets",
+                "halt"
+            ],
+            "postAttachCommands": [
+                "monitor reset init",
+                "set backtrace limit 20",
+                "tbreak main"
+            ],
+            "runToEntryPoint": "main"
+        },
+        {
+            "name": "Debug LUPA Emulator",
+            "cwd": "${workspaceRoot}",
+            "executable": "${auto-select}",
+            "request": "attach",
+            "type": "cortex-debug",
+            "servertype": "external",
+            "gdbTarget": "localhost:3333",
+            "gdbPath": "${config:lupastudio.gdbPath}",
+            "showDevDebugOutput": "none",
+            "postAttachCommands": [
+                "set backtrace limit 20",
+                "tbreak main"
+            ]
+        }
+    ]
+}

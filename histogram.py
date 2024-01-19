@@ -1,7 +1,7 @@
 import cv2
 # Load images
-img1_path = "./data/frame0.jpg"
-img2_path = "./data/frame1.jpg"
+img1_path = "./newdata/frame0.jpg"
+img2_path = "./newdata/frame1.jpg"
 image1 = cv2.imread(img1_path)
 image2 = cv2.imread(img2_path)
 hist_img1 = cv2.calcHist([image1], [0, 1, 2], None, [256, 256, 256], [0, 256, 0, 256, 0, 256])

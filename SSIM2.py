@@ -3,8 +3,8 @@ import cv2
 import numpy as np
 
 # Load images
-before = cv2.imread("./newdata/img1.jpg")
-after = cv2.imread("./newdata/img2.jpg")
+before = cv2.imread("./newdata/AI.png")
+after = cv2.imread("./newdata/AI2.png")
 
 # Convert images to grayscale
 before_gray = cv2.cvtColor(before, cv2.COLOR_BGR2GRAY)

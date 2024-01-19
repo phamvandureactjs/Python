@@ -56,8 +56,8 @@ def highlight_differences(img1_path, img2_path):
     cv2.waitKey(0)
     cv2.destroyAllWindows()
 # Đường dẫn của hai bức ảnh cần so sánh
-image1_path = "./data/frame0.jpg"
-image2_path = "./data/frame2.jpg"
+image1_path = "./newdata/AI.png"
+image2_path = "./newdata/AI2.png"
 
 # Tính tỷ lệ giống nhau
 similarity_ratio = calculate_similarity(image1_path, image2_path)

@@ -27,8 +27,10 @@ while True:
     fgmask = cv2.dilate(fgmask, kernel, iterations=1)
 
     contours, hierarchy = cv2.findContours(fgmask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-    print(contours)
     for contour in contours:
+        # Ignore small contours
+        if cv2.contourArea(contour) < 1000:
+            continue
         # Draw bounding box around contour
         x, y, w, h = cv2.boundingRect(contour)
         print(x, y)

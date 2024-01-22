@@ -52,17 +52,17 @@ while True:
         continue
 
     # Calculation of difference between static or initial and gray frame we created
-    print(initialState)
     differ_frame = cv2.absdiff(initialState, gray_frame)
 
     #set up threshold for frame image
     # the change between static or initial background and current gray frame are highlighted
     thresh_frame = cv2.threshold(differ_frame, 30, 255, cv2.THRESH_BINARY)[1]
-    
+
     # Làm đậm thresh_frame
     thresh_frame = cv2.dilate(thresh_frame, None, iterations=2)
 
     # For the moving object in the frame finding the coutours
+    # Lấy đường bao của vùng chuyển động
     cont, _ = cv2.findContours(
         thresh_frame.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE
     )

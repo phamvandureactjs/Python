@@ -1,10 +1,11 @@
 import cv2
 import numpy as np
 
-x_center, y_center = 0, 0
-x_phone, y_phone = 0, 0
-def draw_line(img, point1, point2, color=(0, 111, 0), thickness=2):
+redPoint = (0,0)
+phoneCor = (0,0)
+def draw_line(img,point1, point2, color=(110, 111, 0), thickness=2):
     cv2.line(img, point1, point2, color, thickness)
+    # cv2.imshow("window_name", img) 
 def findCenterOfRedPoint(frame):
     # Chuyển đổi frame sang dạng HSV để dễ dàng xác định màu sắc
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
@@ -19,10 +20,11 @@ def findCenterOfRedPoint(frame):
         M = cv2.moments(contour)
         if M["m00"] != 0:
             cx = int(M["m10"] / M["m00"])
-            # x_center = cx
             cy = int(M["m01"] / M["m00"])
+            redPoint = (cx, cy)
+            redPoint = list(redPoint)
             cv2.circle(frame, (cx, cy), 10, (0, 111, 111), -1)
-    # print(x_center, y_center)
+    print(redPoint)
 
 def findCordinateOfPhone(frame, mog):
      # Convert the frame to grayscale
@@ -43,6 +45,13 @@ def findCordinateOfPhone(frame, mog):
         box = np.int0(box)
         # Draw the bounding box
         cv2.drawContours(frame, [box], 0, (0, 255, 0), 2)
+        phoneCor = box[1]
+        draw_line(frame, [830, 362], phoneCor)
+        # print(phoneCor)
+        # print(box[0])
+        # print(box[1])
+        # print(box[2])
+        # print(box[3])
     
 cap = cv2.VideoCapture("./video/oven_animation_2.mp4")
 mog = cv2.createBackgroundSubtractorMOG2()
@@ -52,6 +61,7 @@ while cap.isOpened():
         break
     findCordinateOfPhone(frame, mog)
     findCenterOfRedPoint(frame)
+
     # Hiển thị frame với tâm của chấm đỏ
     cv2.imshow('Video', frame)
 

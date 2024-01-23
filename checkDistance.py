@@ -24,7 +24,7 @@ def findCenterOfRedPoint(frame):
             redPoint = (cx, cy)
             redPoint = list(redPoint)
             cv2.circle(frame, (cx, cy), 10, (0, 111, 111), -1)
-    print(redPoint)
+    # print(redPoint)
 
 def findCordinateOfPhone(frame, mog):
      # Convert the frame to grayscale
@@ -37,8 +37,10 @@ def findCordinateOfPhone(frame, mog):
     fgmask = cv2.dilate(fgmask, kernel, iterations=1)
     contours, hierarchy = cv2.findContours( fgmask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE )
     for contour in contours:
-        if cv2.contourArea(contour) < 1000:
+        if cv2.contourArea(contour) < 1000 or (cv2.contourArea(contour) > 1000 and cv2.contourArea(contour) < 2000) or (cv2.contourArea(contour) > 4000 and cv2.contourArea(contour) < 6500):
             continue
+        else:
+            print(cv2.contourArea(contour))
         # Get the rotated bounding box
         rect = cv2.minAreaRect(contour)
         box = cv2.boxPoints(rect)
